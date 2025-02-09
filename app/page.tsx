@@ -33,7 +33,7 @@ export default function Home() {
     return [regex.test(repoURL), "Enter valid Github Repository URL"];
   }, [repoURL]);
 
-  const handleClickDeploy = useCallback(async () => {
+const handleClickDeploy = useCallback(async () => {
     setLoading(true);
 
     const { data } = await axios.post(`https://api-server-fmz7.onrender.com/project`, {
@@ -44,12 +44,13 @@ export default function Home() {
     if (data && data.data) {
       const { projectSlug, url } = data.data;
       setProjectId(projectSlug);
-      setDeployPreviewURL(url);
+      setDeployPreviewURL(url);  // URL now comes from API directly without reverse proxy
 
       console.log(`Subscribing to logs:${projectSlug}`);
       socket.emit("subscribe", `logs:${projectSlug}`);
     }
-  }, [projectId, repoURL]);
+}, [projectId, repoURL]);
+
 
   // const handleSocketIncommingMessage = useCallback((message: string) => {
   //   console.log(`[Incomming Socket Message]:`, typeof message, message);
