@@ -36,7 +36,7 @@ export default function Home() {
   const handleClickDeploy = useCallback(async () => {
     setLoading(true);
 
-    const { data } = await axios.post(`https://api-server-fmz7.onrender.com`, {
+    const { data } = await axios.post(`https://api-server-fmz7.onrender.com/project`, {
       gitURL: repoURL,
       slug: projectId,
     });
